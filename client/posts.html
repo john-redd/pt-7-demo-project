@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <h1>Posts</h1>
+  <div>
+    <label for="title">Title:</label>
+    <input id="title" type="text" name="title" />
+  </div>
+  <div>
+    <label for="body">Body:</label>
+    <input id="body" type="text" name="body" />
+  </div>
+  <div>
+    <label for="img-url">Image URL:</label>
+    <input id="img-url" type="text" name="img-url" />
+  </div>
+  <input id="user-id" type="hidden" name="user-id" />
+  <button id="create-post-button">Create Post</button>
+  <script src="/node_modules/axios/dist/axios.min.js"></script>
+  <script src="posts.js"></script>
+</body>
+
+</html>
