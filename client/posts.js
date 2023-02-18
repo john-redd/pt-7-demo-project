@@ -17,18 +17,60 @@ async function createPost() {
 
   await axios.post(`${baseURL}/api/posts`, payload);
 
+  // 1. Array of post objects
+  // Update the DOM with all posts
+
+  // 2. Singular new post object
+  // Update the DOM with just this one new post
+
   alert("Successfully create post!");
 }
 
 const createPostButton = document.querySelector("#create-post-button");
 createPostButton.addEventListener("click", createPost);
 
-const urlSearchParams = new URLSearchParams(window.location.search)
-let userID = urlSearchParams.get('userID')
+function getUserIDFromURLForHiddenInput(){
+  const urlSearchParams = new URLSearchParams(window.location.search)
+  let userID = urlSearchParams.get('userID')
 
-console.log({ userID });
+  userIDInput.value = userID
+}
 
-userIDInput.value = userID
+getUserIDFromURLForHiddenInput()
+
+async function getPosts(){
+  try {
+    const response = await axios.get(`${baseURL}/api/posts`);
+
+    renderPosts(response.data)
+  } catch (error) {
+    alert('An unexpected error has occured, please try again later.')
+  }
+}
+
+getPosts()
+
+function renderPosts(posts){
+  const postsContainer = document.getElementById('posts-container')
+
+  console.log(postsContainer)
+
+  const postsHTML = posts.map(createPostHTML).join('')
+
+  console.log(postsHTML)
+
+  postsContainer.innerHTML = postsHTML
+}
+
+function createPostHTML(post){
+  return `
+    <div class="post">
+      <p>${post.title}</p>
+      <p>${post.body}</p>
+      <p>Post by <span class="user-email">${post.email}</span></p>
+    </div>
+  `
+}
 
 // 1
 // Demo of looping over all query params
